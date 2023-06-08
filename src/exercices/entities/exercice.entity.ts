@@ -6,6 +6,9 @@ export class Exercice {
   id: number;
 
   @Column()
+  name: string;
+
+  @Column()
   repetitions: number;
 
   @Column()
