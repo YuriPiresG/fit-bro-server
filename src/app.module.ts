@@ -1,19 +1,27 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-console.log(process.env.PG_PASSWORD);
-console.log(process.env.PG_HOST);
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { User } from './users/entities/user.entity';
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.PG_HOST,
-      username: process.env.PG_USER,
-      password: process.env.PG_PASSWORD,
-      database: process.env.PG_DATABASE,
-      autoLoadEntities: true,
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        return {
+          type: 'postgres',
+          url: configService.get<string>('DB_CONNECTION'),
+          entities: [User],
+          synchronize: true,
+          ssl: { rejectUnauthorized: false },
+        };
+      },
+      inject: [ConfigService],
+    }),
+    UsersModule,
   ],
   controllers: [],
   providers: [],
