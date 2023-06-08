@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { CreateExerciceDto } from './dto/create-exercise.dto';
-import { UpdateExerciceDto } from './dto/update-exercise.dto';
+import { CreateExerciseDto } from './dto/create-exercise.dto';
+import { UpdateExerciseDto } from './dto/update-exercise.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Exercice } from './entities/exercise.entity';
+import { Exercise } from './entities/exercise.entity';
 
 @Injectable()
-export class exercisesService {
+export class ExercisesService {
   constructor(
-    @InjectRepository(Exercice)
-    private exercisesRepository: Repository<Exercice>,
+    @InjectRepository(Exercise)
+    private exercisesRepository: Repository<Exercise>,
   ) {}
-  create(createExerciceDto: CreateExerciceDto) {
-    return this.exercisesRepository.save(createExerciceDto);
+  create(createExerciseDto: CreateExerciseDto) {
+    return this.exercisesRepository.save(createExerciseDto);
   }
 
   findAll() {
@@ -23,10 +23,10 @@ export class exercisesService {
     return this.exercisesRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateExerciceDto: UpdateExerciceDto) {
+  update(id: number, updateExerciseDto: UpdateExerciseDto) {
     const exerciseUpdated = this.exercisesRepository.save({
       id,
-      ...updateExerciceDto,
+      ...updateExerciseDto,
     });
     return exerciseUpdated;
   }

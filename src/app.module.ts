@@ -9,8 +9,10 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { WorkoutModule } from './workout/workout.module';
 import { DietModule } from './diet/diet.module';
 import { MeasurementsModule } from './measurements/measurements.module';
-import { exercisesModule } from './exercises/exercises.module';
+
 import { Workout } from './workout/entities/workout.entity';
+import { exercisesModule } from './exercices/exercises.module';
+import { Exercise } from './exercices/entities/exercise.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,7 +24,7 @@ import { Workout } from './workout/entities/workout.entity';
         return {
           type: 'postgres',
           url: configService.get<string>('DB_CONNECTION'),
-          entities: [User, Workout],
+          entities: [User, Workout, Exercise],
           synchronize: true,
           ssl: { rejectUnauthorized: false },
         };

@@ -7,17 +7,17 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateExerciceDto } from './dto/create-exercise.dto';
-import { UpdateExerciceDto } from './dto/update-exercise.dto';
-import { exercisesService } from './exercises.service';
+import { CreateExerciseDto } from './dto/create-exercise.dto';
+import { UpdateExerciseDto } from './dto/update-exercise.dto';
+import { ExercisesService } from './exercises.service';
 
 @Controller('exercises')
 export class exercisesController {
-  constructor(private readonly exercisesService: exercisesService) {}
+  constructor(private readonly exercisesService: ExercisesService) {}
 
   @Post()
-  create(@Body() createExerciceDto: CreateExerciceDto) {
-    return this.exercisesService.create(createExerciceDto);
+  create(@Body() createExerciseDto: CreateExerciseDto) {
+    return this.exercisesService.create(createExerciseDto);
   }
 
   @Get()
@@ -33,9 +33,9 @@ export class exercisesController {
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() updateExerciceDto: UpdateExerciceDto,
+    @Body() updateExerciseDto: UpdateExerciseDto,
   ) {
-    return this.exercisesService.update(+id, updateExerciceDto);
+    return this.exercisesService.update(+id, updateExerciseDto);
   }
 
   @Delete(':id')
