@@ -9,7 +9,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { WorkoutModule } from './workout/workout.module';
 import { DietModule } from './diet/diet.module';
 import { MeasurementsModule } from './measurements/measurements.module';
-import { ExercicesModule } from './exercices/exercices.module';
+import { exercisesModule } from './exercises/exercises.module';
 import { Workout } from './workout/entities/workout.entity';
 @Module({
   imports: [
@@ -34,7 +34,7 @@ import { Workout } from './workout/entities/workout.entity';
     WorkoutModule,
     DietModule,
     MeasurementsModule,
-    ExercicesModule,
+    exercisesModule,
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
