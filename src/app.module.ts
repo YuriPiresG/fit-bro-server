@@ -15,6 +15,8 @@ import { ExercisesModule } from './exercices/exercises.module';
 import { Exercise } from './exercices/entities/exercise.entity';
 import { Diet } from './diet/entities/diet.entity';
 import { Measurement } from './measurements/entities/measurement.entity';
+import { IngredientsModule } from './ingredients/ingredients.module';
+import { Ingredient } from './ingredients/entities/ingredient.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -26,7 +28,7 @@ import { Measurement } from './measurements/entities/measurement.entity';
         return {
           type: 'postgres',
           url: configService.get<string>('DB_CONNECTION'),
-          entities: [User, Workout, Exercise, Diet, Measurement],
+          entities: [User, Workout, Exercise, Diet, Measurement, Ingredient],
           synchronize: true,
           ssl: { rejectUnauthorized: false },
         };
@@ -39,6 +41,7 @@ import { Measurement } from './measurements/entities/measurement.entity';
     DietModule,
     MeasurementsModule,
     ExercisesModule,
+    IngredientsModule,
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
