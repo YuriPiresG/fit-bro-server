@@ -47,6 +47,9 @@ export class UsersService {
     }
     return userValue;
   }
+  async findByUsername(username: string): Promise<User> {
+    return this.findOne({ username });
+  }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const hashPass = await bcrypt.hash(updateUserDto.password, 10);
