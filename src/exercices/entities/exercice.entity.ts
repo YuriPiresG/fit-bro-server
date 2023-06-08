@@ -1,13 +1,16 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Workout {
+export class Exercice {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  repetitions: number;
 
   @Column()
-  description?: string;
+  series: number;
+
+  @Column()
+  weight: number;
 }

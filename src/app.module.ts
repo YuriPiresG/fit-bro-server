@@ -9,6 +9,8 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { WorkoutModule } from './workout/workout.module';
 import { DietModule } from './diet/diet.module';
 import { MeasurementsModule } from './measurements/measurements.module';
+import { ExercicesModule } from './exercices/exercices.module';
+import { Workout } from './workout/entities/workout.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -20,7 +22,7 @@ import { MeasurementsModule } from './measurements/measurements.module';
         return {
           type: 'postgres',
           url: configService.get<string>('DB_CONNECTION'),
-          entities: [User],
+          entities: [User, Workout],
           synchronize: true,
           ssl: { rejectUnauthorized: false },
         };
@@ -32,6 +34,7 @@ import { MeasurementsModule } from './measurements/measurements.module';
     WorkoutModule,
     DietModule,
     MeasurementsModule,
+    ExercicesModule,
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
