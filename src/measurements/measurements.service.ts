@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMeasurementDto } from './dto/create-measurement.dto';
 import { UpdateMeasurementDto } from './dto/update-measurement.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Measurement } from './entities/measurement.entity';
 
 @Injectable()
 export class MeasurementsService {
+  constructor(
+    @InjectRepository(Measurement)
+    private measurementRepository: Repository<Measurement>,
+  ) {}
   create(createMeasurementDto: CreateMeasurementDto) {
-    return 'This action adds a new measurement';
+    return this.measurementRepository.save(createMeasurementDto);
   }
 
   findAll() {
-    return `This action returns all measurements`;
+    return this.measurementRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} measurement`;
+    return this.measurementRepository.findOne({ where: { id } });
   }
 
   update(id: number, updateMeasurementDto: UpdateMeasurementDto) {
-    return `This action updates a #${id} measurement`;
+    return this.measurementRepository.update(id, updateMeasurementDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} measurement`;
+    return this.measurementRepository.delete(id);
   }
 }

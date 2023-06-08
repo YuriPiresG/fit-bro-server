@@ -14,6 +14,7 @@ import { Workout } from './workout/entities/workout.entity';
 import { ExercisesModule } from './exercices/exercises.module';
 import { Exercise } from './exercices/entities/exercise.entity';
 import { Diet } from './diet/entities/diet.entity';
+import { Measurement } from './measurements/entities/measurement.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,7 +26,7 @@ import { Diet } from './diet/entities/diet.entity';
         return {
           type: 'postgres',
           url: configService.get<string>('DB_CONNECTION'),
-          entities: [User, Workout, Exercise, Diet],
+          entities: [User, Workout, Exercise, Diet, Measurement],
           synchronize: true,
           ssl: { rejectUnauthorized: false },
         };
