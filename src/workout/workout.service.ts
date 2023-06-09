@@ -20,7 +20,10 @@ export class WorkoutService {
     if (!userFound || createWorkoutDto.userId !== userFound.id) {
       throw new Error('Usuário não encontrado!');
     }
-    return this.workoutRepository.save(createWorkoutDto);
+    return await this.workoutRepository.save({
+      ...createWorkoutDto,
+      user: { id: createWorkoutDto.userId },
+    });
   }
 
   findAll() {
