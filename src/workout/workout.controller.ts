@@ -27,7 +27,7 @@ export class WorkoutController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.workoutService.findOne(+id);
+    return this.workoutService.findOne({ id: +id });
   }
 
   @Put(':id')

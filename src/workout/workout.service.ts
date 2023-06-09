@@ -1,10 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
 import { UpdateWorkoutDto } from './dto/update-workout.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Workout } from './entities/workout.entity';
 import { UsersService } from 'src/users/users.service';
+import { Repository } from 'typeorm';
+
+interface FindOneOptions {
+  id?: number;
+  name?: string;
+}
 
 @Injectable()
 export class WorkoutService {
@@ -30,8 +35,14 @@ export class WorkoutService {
     return this.workoutRepository.find();
   }
 
-  findOne(id: number) {
-    return this.workoutRepository.findOne({ where: { id } });
+  async findOne({ id, name }: FindOneOptions): Promise<Workout> {
+    const workoutValue = await this.workoutRepository.findOne({
+      where: { id, name },
+    });
+    if (workoutValue === null) {
+      throw new NotFoundException('Treino não encontrado!');
+    }
+    return workoutValue;
   }
 
   update(id: number, updateWorkoutDto: UpdateWorkoutDto) {

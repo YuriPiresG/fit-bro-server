@@ -16,4 +16,8 @@ export class CreateExerciseDto {
   @IsNotEmpty()
   @IsNumber()
   weight: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  workoutId: number;
 }
