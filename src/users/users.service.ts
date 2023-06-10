@@ -43,7 +43,7 @@ export class UsersService {
       where: { id, username },
     });
     if (userValue === null) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Usuário ou senha incorretos');
     }
     return userValue;
   }
