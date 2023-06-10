@@ -10,10 +10,17 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserJwtPayload } from 'src/auth/jwt.strategy';
+import { UserDec } from 'src/decorators/user.decorator';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Get('me')
+  getMe(@UserDec() user: UserJwtPayload) {
+    return user;
+  }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
