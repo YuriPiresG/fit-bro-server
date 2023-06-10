@@ -1,4 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Ingredient } from 'src/ingredients/entities/ingredient.entity';
+import { User } from 'src/users/entities/user.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Diet {
@@ -10,4 +18,10 @@ export class Diet {
 
   @Column()
   guide: string;
+
+  @OneToMany(() => Ingredient, (ingredients) => ingredients.diet)
+  ingredients: Ingredient[];
+
+  @ManyToOne(() => User, (user) => user.diets)
+  user: User;
 }
