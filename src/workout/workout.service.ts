@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Workout } from './entities/workout.entity';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
+import { Exercise } from 'src/exercices/entities/exercise.entity';
+import { User } from 'src/users/entities/user.entity';
 
 interface FindOneOptions {
   id?: number;
@@ -25,14 +27,23 @@ export class WorkoutService {
     if (!userFound || createWorkoutDto.userId !== userFound.id) {
       throw new Error('Usuário não encontrado!');
     }
-    return await this.workoutRepository.save({
-      ...createWorkoutDto,
-      user: { id: createWorkoutDto.userId },
-    });
+    const workoutCreated = this.workoutRepository.create();
+    workoutCreated.name = createWorkoutDto.name;
+    workoutCreated.description = createWorkoutDto.description;
+    workoutCreated.user = { id: createWorkoutDto.userId } as User;
+    workoutCreated.exercises = createWorkoutDto.exercisesId.map(
+      (id) =>
+        ({
+          id: id,
+        } as Exercise),
+    );
+    return await this.workoutRepository.save(workoutCreated);
   }
 
   findAll() {
-    return this.workoutRepository.find({ relations: ['user'] });
+    return this.workoutRepository.find({
+      relations: ['user', 'exercises'],
+    });
   }
 
   async findOne({ id, name }: FindOneOptions): Promise<Workout> {
@@ -51,10 +62,10 @@ export class WorkoutService {
     });
   }
 
-  update(id: number, updateWorkoutDto: UpdateWorkoutDto) {
-    const workoutUpdated = this.workoutRepository.save({
-      id,
+  async update(id: number, updateWorkoutDto: UpdateWorkoutDto) {
+    const workoutUpdated = await this.workoutRepository.save({
       ...updateWorkoutDto,
+      user: { id: updateWorkoutDto.userId },
     });
     return workoutUpdated;
   }

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateWorkoutDto {
   @IsString()
@@ -10,4 +10,8 @@ export class CreateWorkoutDto {
 
   @IsNumber()
   userId: number;
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  exercisesId: number[];
 }
