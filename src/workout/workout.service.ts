@@ -32,7 +32,7 @@ export class WorkoutService {
   }
 
   findAll() {
-    return this.workoutRepository.find();
+    return this.workoutRepository.find({ relations: ['user'] });
   }
 
   async findOne({ id, name }: FindOneOptions): Promise<Workout> {
@@ -43,6 +43,12 @@ export class WorkoutService {
       throw new NotFoundException('Treino não encontrado!');
     }
     return workoutValue;
+  }
+
+  async findWorkoutsByUserId(userId: number): Promise<Workout[]> {
+    return await this.workoutRepository.find({
+      where: { user: { id: userId } },
+    });
   }
 
   update(id: number, updateWorkoutDto: UpdateWorkoutDto) {

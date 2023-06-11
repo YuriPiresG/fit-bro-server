@@ -5,7 +5,7 @@ import { jwtConstants } from './constants';
 import { JwtPayload } from './auth.service';
 
 export interface UserJwtPayload {
-  userId: number;
+  id: number;
   username: string;
 }
 @Injectable()
@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
   async validate(payload: JwtPayload): Promise<UserJwtPayload> {
     return {
-      userId: payload.sub,
+      id: payload.sub,
       username: payload.username,
     };
   }

@@ -30,6 +30,11 @@ export class WorkoutController {
     return this.workoutService.findOne({ id: +id });
   }
 
+  @Get('user/:id')
+  findWorkoutsByUserId(@Param('id') id: string) {
+    return this.workoutService.findWorkoutsByUserId(+id);
+  }
+
   @Put(':id')
   update(@Param('id') id: string, @Body() updateWorkoutDto: UpdateWorkoutDto) {
     return this.workoutService.update(+id, updateWorkoutDto);

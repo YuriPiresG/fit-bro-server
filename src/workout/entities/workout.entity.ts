@@ -1,12 +1,11 @@
 import { Exercise } from 'src/exercices/entities/exercise.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
+  Entity,
   ManyToOne,
-  Unique,
   OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
@@ -14,7 +13,6 @@ export class Workout {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Unique(['name'])
   @Column()
   name: string;
 
