@@ -63,17 +63,21 @@ export class WorkoutService {
   }
 
   async update(id: number, updateWorkoutDto: UpdateWorkoutDto) {
-    const workoutUpdated = this.workoutRepository.create();
-    workoutUpdated.name = updateWorkoutDto.name;
-    workoutUpdated.description = updateWorkoutDto.description;
-    workoutUpdated.user = { id: updateWorkoutDto.userId } as User;
-    workoutUpdated.exercises = updateWorkoutDto.exercisesId.map(
+    const workoutFound = await this.workoutRepository.findOne({
+      where: { id },
+    });
+    if (workoutFound === null) {
+      throw new NotFoundException('Treino não encontrado!');
+    }
+    workoutFound.name = updateWorkoutDto.name;
+    workoutFound.description = updateWorkoutDto.description;
+    workoutFound.exercises = updateWorkoutDto.exercisesId.map(
       (id) =>
         ({
           id: id,
         } as Exercise),
     );
-    return await this.workoutRepository.save(workoutUpdated);
+    return await this.workoutRepository.save(workoutFound);
   }
 
   remove(id: number) {

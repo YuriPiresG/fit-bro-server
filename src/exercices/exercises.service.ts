@@ -47,11 +47,7 @@ export class ExercisesService {
   }
 
   update(id: number, updateExerciseDto: UpdateExerciseDto) {
-    const exerciseUpdated = this.exercisesRepository.save({
-      id,
-      ...updateExerciseDto,
-    });
-    return exerciseUpdated;
+    return this.exercisesRepository.save({ ...updateExerciseDto, id });
   }
 
   remove(id: number) {

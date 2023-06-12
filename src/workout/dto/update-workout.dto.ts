@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
+import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { CreateWorkoutDto } from './create-workout.dto';
-import { IsString, IsNotEmpty } from 'class-validator';
 
 export class UpdateWorkoutDto extends PartialType(CreateWorkoutDto) {
   @IsString()
@@ -9,4 +9,8 @@ export class UpdateWorkoutDto extends PartialType(CreateWorkoutDto) {
 
   @IsString()
   description?: string;
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  exercisesId: number[];
 }
