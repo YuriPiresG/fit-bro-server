@@ -63,11 +63,17 @@ export class WorkoutService {
   }
 
   async update(id: number, updateWorkoutDto: UpdateWorkoutDto) {
-    const workoutUpdated = await this.workoutRepository.save({
-      ...updateWorkoutDto,
-      user: { id: updateWorkoutDto.userId },
-    });
-    return workoutUpdated;
+    const workoutUpdated = this.workoutRepository.create();
+    workoutUpdated.name = updateWorkoutDto.name;
+    workoutUpdated.description = updateWorkoutDto.description;
+    workoutUpdated.user = { id: updateWorkoutDto.userId } as User;
+    workoutUpdated.exercises = updateWorkoutDto.exercisesId.map(
+      (id) =>
+        ({
+          id: id,
+        } as Exercise),
+    );
+    return await this.workoutRepository.save(workoutUpdated);
   }
 
   remove(id: number) {
