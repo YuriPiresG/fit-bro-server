@@ -1,4 +1,3 @@
-import { User } from 'src/users/entities/user.entity';
 import { Workout } from 'src/workout/entities/workout.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -21,7 +20,4 @@ export class Exercise {
 
   @ManyToOne(() => Workout, (workout) => workout.exercises)
   workout: Workout;
-
-  @ManyToOne(() => User, (user) => user.exercises)
-  user: User;
 }

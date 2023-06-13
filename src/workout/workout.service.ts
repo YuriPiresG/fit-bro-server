@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  forwardRef,
+} from '@nestjs/common';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
 import { UpdateWorkoutDto } from './dto/update-workout.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,6 +12,7 @@ import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
 import { Exercise } from 'src/exercices/entities/exercise.entity';
 import { User } from 'src/users/entities/user.entity';
+import { ExercisesService } from 'src/exercices/exercises.service';
 
 interface FindOneOptions {
   id?: number;
@@ -16,6 +22,8 @@ interface FindOneOptions {
 @Injectable()
 export class WorkoutService {
   constructor(
+    @Inject(forwardRef(() => ExercisesService))
+    private exercisesService: ExercisesService,
     @InjectRepository(Workout)
     private workoutRepository: Repository<Workout>,
     private usersService: UsersService,
@@ -31,12 +39,6 @@ export class WorkoutService {
     workoutCreated.name = createWorkoutDto.name;
     workoutCreated.description = createWorkoutDto.description;
     workoutCreated.user = { id: createWorkoutDto.userId } as User;
-    workoutCreated.exercises = createWorkoutDto.exercisesId.map(
-      (id) =>
-        ({
-          id: id,
-        } as Exercise),
-    );
     return await this.workoutRepository.save(workoutCreated);
   }
 
@@ -80,7 +82,24 @@ export class WorkoutService {
     return await this.workoutRepository.save(workoutFound);
   }
 
-  remove(id: number) {
-    return this.workoutRepository.delete(id);
+  async remove(id: number): Promise<any> {
+    const workoutFound = await this.workoutRepository.findOne({
+      where: { id },
+    });
+
+    if (!workoutFound) {
+      throw new NotFoundException('Treino não encontrado!');
+    }
+
+    const exercisesFound = await this.exercisesService.findByWorkoutId(id);
+    console.log(exercisesFound);
+
+    for (const exercise of exercisesFound) {
+      await this.exercisesService.remove(exercise.id);
+    }
+
+    await this.workoutRepository.remove(workoutFound);
+
+    return workoutFound;
   }
 }

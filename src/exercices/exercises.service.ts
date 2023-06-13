@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  forwardRef,
+} from '@nestjs/common';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { UpdateExerciseDto } from './dto/update-exercise.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,9 +19,10 @@ interface FindOneOptions {
 @Injectable()
 export class ExercisesService {
   constructor(
+    @Inject(forwardRef(() => WorkoutService))
+    private workoutService: WorkoutService,
     @InjectRepository(Exercise)
     private exercisesRepository: Repository<Exercise>,
-    private workoutService: WorkoutService,
   ) {}
   async create(createExerciseDto: CreateExerciseDto) {
     const workoutFound = await this.workoutService.findOne({
@@ -37,13 +43,19 @@ export class ExercisesService {
   }
 
   async findOne({ id, name }: FindOneOptions): Promise<Exercise> {
-    const workoutValue = await this.exercisesRepository.findOne({
+    const exerciseValue = await this.exercisesRepository.findOne({
       where: { id, name },
     });
-    if (workoutValue === null) {
+    if (exerciseValue === null) {
       throw new NotFoundException('Exercício não encontrado!');
     }
-    return workoutValue;
+    return exerciseValue;
+  }
+
+  async findByWorkoutId(exerciseId: number) {
+    return this.exercisesRepository.find({
+      where: { workout: { id: exerciseId } },
+    });
   }
 
   update(id: number, updateExerciseDto: UpdateExerciseDto) {

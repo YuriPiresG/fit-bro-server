@@ -20,8 +20,4 @@ export class CreateExerciseDto {
   @IsNotEmpty()
   @IsNumber()
   workoutId: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  userId: number;
 }

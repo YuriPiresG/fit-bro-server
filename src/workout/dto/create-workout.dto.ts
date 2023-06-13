@@ -10,8 +10,4 @@ export class CreateWorkoutDto {
 
   @IsNumber()
   userId: number;
-
-  @IsArray()
-  @IsNumber({}, { each: true })
-  exercisesId: number[];
 }

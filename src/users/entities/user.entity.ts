@@ -21,9 +21,6 @@ export class User {
   @OneToMany(() => Workout, (workout) => workout.user)
   workouts: Workout[];
 
-  @OneToMany(() => Exercise, (exercises) => exercises.user)
-  exercises: Exercise[];
-
   @OneToMany(() => Measurement, (measurement) => measurement.user)
   measurements: Measurement[];
 
