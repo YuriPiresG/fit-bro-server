@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateDietDto {
   @IsNotEmpty()
@@ -8,4 +8,8 @@ export class CreateDietDto {
   @IsNotEmpty()
   @IsString()
   guide: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  userId: number;
 }

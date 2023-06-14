@@ -4,19 +4,32 @@ import { UpdateDietDto } from './dto/update-diet.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Diet } from './entities/diet.entity';
+import { UsersService } from 'src/users/users.service';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class DietService {
   constructor(
     @InjectRepository(Diet)
     private dietRepository: Repository<Diet>,
+    private usersService: UsersService,
   ) {}
-  create(createDietDto: CreateDietDto) {
-    return this.dietRepository.save(createDietDto);
+  async create(createDietDto: CreateDietDto) {
+    const userFound = await this.usersService.findOne({
+      id: createDietDto.userId,
+    });
+    if (!userFound || createDietDto.userId !== userFound.id) {
+      throw new Error('Usuário não encontrado!');
+    }
+    const dietCreated = this.dietRepository.create();
+    dietCreated.name = createDietDto.name;
+    dietCreated.guide = createDietDto.guide;
+    dietCreated.user = { id: createDietDto.userId } as User;
+    return this.dietRepository.save(dietCreated);
   }
 
   findAll() {
-    return this.dietRepository.find();
+    return this.dietRepository.find({ relations: ['user'] });
   }
 
   findOne(id: number) {
