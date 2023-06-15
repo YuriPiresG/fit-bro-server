@@ -27,7 +27,7 @@ export class DietController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.dietService.findOne(+id);
+    return this.dietService.findOne({ id: +id });
   }
 
   @Put(':id')

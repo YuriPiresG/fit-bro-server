@@ -92,7 +92,6 @@ export class WorkoutService {
     }
 
     const exercisesFound = await this.exercisesService.findByWorkoutId(id);
-    console.log(exercisesFound);
 
     for (const exercise of exercisesFound) {
       await this.exercisesService.remove(exercise.id);
