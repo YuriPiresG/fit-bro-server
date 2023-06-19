@@ -22,16 +22,10 @@ export class Measurement {
   bodyFat: number;
 
   @Column()
-  bicepsL: number;
+  armL: number;
 
   @Column()
-  bicepsR: number;
-
-  @Column()
-  tricepsL: number;
-
-  @Column()
-  tricepsR: number;
+  armR: number;
 
   @Column()
   forearmL: number;

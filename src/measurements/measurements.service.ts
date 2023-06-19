@@ -26,10 +26,8 @@ export class MeasurementsService {
     measurementCreated.weight = createMeasurementDto.weight;
     measurementCreated.height = createMeasurementDto.height;
     measurementCreated.bodyFat = createMeasurementDto.bodyFat;
-    measurementCreated.bicepsL = createMeasurementDto.bicepsL;
-    measurementCreated.bicepsR = createMeasurementDto.bicepsR;
-    measurementCreated.tricepsL = createMeasurementDto.tricepsL;
-    measurementCreated.tricepsR = createMeasurementDto.tricepsR;
+    measurementCreated.armL = createMeasurementDto.armL;
+    measurementCreated.armR = createMeasurementDto.armR;
     measurementCreated.forearmL = createMeasurementDto.forearmL;
     measurementCreated.forearmR = createMeasurementDto.forearmR;
     measurementCreated.chest = createMeasurementDto.chest;

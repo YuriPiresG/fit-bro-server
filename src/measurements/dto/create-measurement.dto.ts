@@ -22,19 +22,11 @@ export class CreateMeasurementDto {
 
   @IsNumber()
   @IsNotEmpty()
-  bicepsL: number;
+  armL: number;
 
   @IsNumber()
   @IsNotEmpty()
-  bicepsR: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  tricepsL: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  tricepsR: number;
+  armR: number;
 
   @IsNumber()
   @IsNotEmpty()
