@@ -18,15 +18,27 @@ export class CreateMeasurementDto {
 
   @IsNumber()
   @IsNotEmpty()
-  biceps: number;
+  bicepsL: number;
 
   @IsNumber()
   @IsNotEmpty()
-  triceps: number;
+  bicepsR: number;
 
   @IsNumber()
   @IsNotEmpty()
-  forearm: number;
+  tricepsL: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  tricepsR: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  forearmL: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  forearmR: number;
 
   @IsNumber()
   @IsNotEmpty()
@@ -42,11 +54,19 @@ export class CreateMeasurementDto {
 
   @IsNumber()
   @IsNotEmpty()
-  thigh: number;
+  thighL: number;
 
   @IsNumber()
   @IsNotEmpty()
-  calf: number;
+  thighR: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  calfL: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  calfR: number;
 
   @IsNumber()
   @IsNotEmpty()
@@ -54,5 +74,9 @@ export class CreateMeasurementDto {
 
   @IsNumber()
   @IsNotEmpty()
-  shoulder: number;
+  shoulderL: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  shoulderR: number;
 }

@@ -22,13 +22,22 @@ export class Measurement {
   bodyFat: number;
 
   @Column()
-  biceps: number;
+  bicepsL: number;
 
   @Column()
-  triceps: number;
+  bicepsR: number;
 
   @Column()
-  forearm: number;
+  tricepsL: number;
+
+  @Column()
+  tricepsR: number;
+
+  @Column()
+  forearmL: number;
+
+  @Column()
+  forearmR: number;
 
   @Column()
   chest: number;
@@ -40,14 +49,23 @@ export class Measurement {
   hips: number;
 
   @Column()
-  thigh: number;
+  thighL: number;
 
   @Column()
-  calf: number;
+  thighR: number;
+
+  @Column()
+  calfL: number;
+
+  @Column()
+  calfR: number;
 
   @Column()
   back: number;
 
   @Column()
-  shoulder: number;
+  shoulderL: number;
+
+  @Column()
+  shoulderR: number;
 }
