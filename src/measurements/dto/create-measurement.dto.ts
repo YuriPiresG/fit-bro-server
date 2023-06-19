@@ -78,9 +78,5 @@ export class CreateMeasurementDto {
 
   @IsNumber()
   @IsNotEmpty()
-  shoulderL: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  shoulderR: number;
+  shoulders: number;
 }

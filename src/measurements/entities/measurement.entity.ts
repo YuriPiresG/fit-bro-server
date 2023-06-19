@@ -64,8 +64,5 @@ export class Measurement {
   back: number;
 
   @Column()
-  shoulderL: number;
-
-  @Column()
-  shoulderR: number;
+  shoulders: number;
 }

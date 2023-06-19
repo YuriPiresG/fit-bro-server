@@ -40,8 +40,7 @@ export class MeasurementsService {
     measurementCreated.calfL = createMeasurementDto.calfL;
     measurementCreated.calfR = createMeasurementDto.calfR;
     measurementCreated.back = createMeasurementDto.back;
-    measurementCreated.shoulderL = createMeasurementDto.shoulderL;
-    measurementCreated.shoulderR = createMeasurementDto.shoulderR;
+    measurementCreated.shoulders = createMeasurementDto.shoulders;
     measurementCreated.user = userFound as User;
     return this.measurementRepository.save(measurementCreated);
   }
