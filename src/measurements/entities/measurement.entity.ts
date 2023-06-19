@@ -10,7 +10,7 @@ export class Measurement {
   user: User;
 
   @Column()
-  date: Date;
+  date: string;
 
   @Column()
   weight: number;

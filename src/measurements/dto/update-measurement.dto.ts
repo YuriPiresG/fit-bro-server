@@ -1,11 +1,11 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateMeasurementDto } from './create-measurement.dto';
-import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class UpdateMeasurementDto extends PartialType(CreateMeasurementDto) {
-  @IsDate()
+  @IsDateString()
   @IsNotEmpty()
-  date: Date;
+  date: string;
 
   @IsNumber()
   @IsNotEmpty()

@@ -1,8 +1,12 @@
-import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsNumber, Matches } from 'class-validator';
 export class CreateMeasurementDto {
-  @IsDate()
+  @Matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)
+  @IsDateString()
+  date: string;
+
+  @IsNumber()
   @IsNotEmpty()
-  date: Date;
+  userId: number;
 
   @IsNumber()
   @IsNotEmpty()
