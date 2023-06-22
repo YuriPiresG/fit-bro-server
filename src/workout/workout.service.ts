@@ -43,9 +43,12 @@ export class WorkoutService {
   }
 
   findAll() {
-    return this.workoutRepository.find({
-      relations: ['user', 'exercises'],
-    });
+    return this.workoutRepository
+      .createQueryBuilder('workout')
+      .leftJoinAndSelect('workout.user', 'user')
+      .leftJoinAndSelect('workout.exercises', 'exercises')
+      .select(['workout', 'user.id', 'user.username', 'exercises'])
+      .getMany();
   }
 
   async findOne({ id, name }: FindOneOptions): Promise<Workout> {

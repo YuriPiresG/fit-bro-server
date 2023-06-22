@@ -44,7 +44,11 @@ export class MeasurementsService {
   }
 
   findAll() {
-    return this.measurementRepository.find({ relations: ['user'] });
+    return this.measurementRepository
+      .createQueryBuilder('measurement')
+      .leftJoin('measurement.user', 'user')
+      .select(['measurement', 'user.id', 'user.username'])
+      .getMany();
   }
 
   findOne(id: number) {

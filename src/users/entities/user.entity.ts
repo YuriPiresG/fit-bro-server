@@ -1,8 +1,7 @@
+import { Diet } from 'src/diet/entities/diet.entity';
 import { Workout } from 'src/workout/entities/workout.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Measurement } from '../../measurements/entities/measurement.entity';
-import { Diet } from 'src/diet/entities/diet.entity';
-import { Exercise } from 'src/exercices/entities/exercise.entity';
 
 @Entity()
 export class User {

@@ -34,7 +34,11 @@ export class DietService {
   }
 
   findAll() {
-    return this.dietRepository.find({ relations: ['user', 'ingredients'] });
+    return this.dietRepository
+      .createQueryBuilder('diet')
+      .leftJoin('diet.user', 'user')
+      .select(['diet', 'user.id', 'user.username'])
+      .getMany();
   }
 
   async findOne({ id, name }: FindOneOptions): Promise<Diet> {
