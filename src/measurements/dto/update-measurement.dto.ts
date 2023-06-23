@@ -1,10 +1,10 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateMeasurementDto } from './create-measurement.dto';
-import { IsDateString, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsNumber, Matches } from 'class-validator';
 
 export class UpdateMeasurementDto extends PartialType(CreateMeasurementDto) {
+  @Matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)
   @IsDateString()
-  @IsNotEmpty()
   date: string;
 
   @IsNumber()
@@ -21,15 +21,19 @@ export class UpdateMeasurementDto extends PartialType(CreateMeasurementDto) {
 
   @IsNumber()
   @IsNotEmpty()
-  biceps: number;
+  armL: number;
 
   @IsNumber()
   @IsNotEmpty()
-  triceps: number;
+  armR: number;
 
   @IsNumber()
   @IsNotEmpty()
-  forearm: number;
+  forearmL: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  forearmR: number;
 
   @IsNumber()
   @IsNotEmpty()
@@ -45,11 +49,19 @@ export class UpdateMeasurementDto extends PartialType(CreateMeasurementDto) {
 
   @IsNumber()
   @IsNotEmpty()
-  thigh: number;
+  thighL: number;
 
   @IsNumber()
   @IsNotEmpty()
-  calf: number;
+  thighR: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  calfL: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  calfR: number;
 
   @IsNumber()
   @IsNotEmpty()
@@ -57,5 +69,5 @@ export class UpdateMeasurementDto extends PartialType(CreateMeasurementDto) {
 
   @IsNumber()
   @IsNotEmpty()
-  shoulder: number;
+  shoulders: number;
 }
